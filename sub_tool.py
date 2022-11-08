@@ -92,21 +92,23 @@ def generate_sh(parameters):
 
 def submit_to_cluster(parameters, job_dict):
     """
-    ASD
+    Run sbatch so to submitt job to cluster, while keeping track of
+    errors
     """
     # Extract path string
     local_path_string = parameters['local\_path'][1:-1]
 
     # run sbatch on shell script
     sb_command = 'sbatch ' + local_path_string + "/sbatch_script.sh"
-    sqo, msg = 1, 1  # commands.getstatusoutput(sb_command)
+    p = subprocess.Popen(sb_command)
+    stdout, stderr = p.communicate()
 
     # If no submission errors, append job
-    if not sqo:
-        job_dict[msg[20:]] = parameters['extension']
-        print(msg)
+    if not stderr:
+        job_dict[stdout[20:]] = parameters['extension']
+        print(stdout)
     # If failed submission, append to dictionary
-    if sqo:
+    if stderr:
         print('Submission failed for ' + local_path_string)
         parameters.setdefault('failed', []).append(local_path_string)
 
