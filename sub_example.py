@@ -47,7 +47,7 @@ for M in range_sizes:
             # Generate program and submission files, and submit jobs
             sub.generate_py(param)
             sub.generate_sh(param)
-            sub.submit_to_cluster(param, job_dict)
+            #sub.submit_to_cluster(param, job_dict)
 
 #   Save parameters
 with open(sim_path + "parameter.pkl", "wb") as f:

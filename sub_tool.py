@@ -100,7 +100,7 @@ def submit_to_cluster(parameters, job_dict):
 
     # run sbatch on shell script
     sb_command = 'sbatch ' + local_path_string + "/sbatch_script.sh"
-    p = subprocess.Popen(sb_command)
+    p = 1#subprocess.Popen(sb_command)
     stdout, stderr = p.communicate()
 
     # If no submission errors, append job
